@@ -1,0 +1,113 @@
+"make-openssl-site" notes                              Revised: 120708
+----------------------------------------------------------------------
+
+1. Overview.
+
+1.1. OpenSSL includes a setup script  named "CA.pl".  However, current
+versions of "CA.pl" aren't  well-documented.  Additionally,  I haven't
+been able to make them work properly for my purposes.  So I've written
+a script of my own named:
+
+      make-openssl-site.sh
+
+"make-openssl-site.sh" is both a practical  OpenSSL configuration tool
+and a detailed tutorial. The  script creates a new  OpenSSL configura-
+tion tree from  scratch, adds sample users,  and shows  how to  encode
+and/or decode S/MIME messages.
+
+As things proceed, the script  explains each step.  Root certificates,
+user certificates, and private keys are all discussed.
+
+1.2. Features:
+
+1.2.1. Everything is done with "openssl" commands; i.e., "CA.pl" isn't
+required.
+
+1.2.2. At each step,  the  "openssl" command that will be used is dis-
+played and discussed in detail.  The user is given the opportunity  to
+quit  (by  typing Q and pressing Enter)  or to  continue  (by pressing
+Enter).
+
+1.2.3. The script is designed to abort at the first  sign  of problems
+or  errors.  If this happens, and the user is able to correct whatever
+went wrong,  running the script again should reset things appropriate-
+ly.
+
+1.2.4. The  resulting OpenSSL system should be  compatible with  GnuPG
+series 2.
+
+1.3. "make-openssl-site" was created by OldCoder:
+
+      Site:    http://oldcoder.org/
+      Mail:    oldcoder@yahoo.com
+      GitHub:  https://github.com/OldCoder/
+      Repo:    https://github.com/OldCoder/make-openssl-site.git
+
+The license used for the current version is  Creative Commons Attribu-
+tion NonCommercial ShareAlike 3.0 Unported.
+
+----------------------------------------------------------------------
+
+2. Development.
+
+2.1. Source code.
+
+Full source code  for the project is provided in the same directory as
+this README file. The code consists of two files:
+
+      make-openssl-site.sh  - A shell script
+      openssl.cnf.initial   - A prototype OpenSSL configuration file
+
+2.2. Requirements.
+
+This package needs Linux, "bash", and "openssl".
+
+2.3. Installation.
+
+No "build" is needed.
+
+To install  the  package, simply copy the two files listed in part 2.1
+to wherever you'd like to store them. The two files should go into the
+same directory (which, ideally, should not be located under  "/etc" or
+"/usr").
+
+----------------------------------------------------------------------
+
+3. Usage.
+
+3.1. Before attempting to use this package,  locate your system's mas-
+ter copy of "openssl.cnf". Typical locations include:
+
+      /etc/openssl.cnf
+      /etc/ssl/openssl.cnf
+      /usr/lib/ssl/openssl.cnf
+      /usr/share/ssl/openssl.cnf
+
+If you're not able to locate the master copy, or if you're not sure it
+is the master copy, stop here.
+
+3.2. Important:  Make  a back-up copy of the file that you  located in
+step 3.1.
+
+3.3. Go to the directory that contains "make-openssl-site.sh".
+
+3.4. Edit  "make-openssl-site.sh" and locate the first line that looks
+like this:
+
+      CNFPATH=
+
+Set CNFPATH to an absolute pathname for the file  that  you located in
+step 3.1. Alternatively, if the pathname is one of the  four  examples
+listed in step 3.1, you may be able to skip this step.
+
+3.5. Run the script. For example:
+
+      sh ./make-openssl-site.sh
+
+Note: Don't use I/O redirection.  The script is designed to be run in-
+teractively.
+
+3.6. A series of blocks of text will be displayed.  Each block will be
+followed by a prompt. Read each block.  If you  wish  to abort  at any
+point, type Q at the prompt and then press Enter. Control-C should al-
+so work.
